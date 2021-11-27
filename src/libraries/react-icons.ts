@@ -1,0 +1,27 @@
+export {
+    FiHome,
+    FiTrendingUp,
+    FiCompass,
+    FiStar,
+    FiSettings,
+    FiMenu,
+    FiBell,
+    FiChevronDown,
+    FiFileText,
+    FiGrid,
+    FiHash,
+    FiBookmark,
+    FiBook,
+    FiAlertCircle,
+    FiCheckCircle,
+    FiFilter,
+    FiInfo,
+    FiInbox,
+    FiDivideSquare,
+    FiClock,
+    FiArrowLeft,
+    FiArrowRight,
+    FiUsers,
+} from 'react-icons/fi';
+
+export type { IconType } from 'react-icons';
