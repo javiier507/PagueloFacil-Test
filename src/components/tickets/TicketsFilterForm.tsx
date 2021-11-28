@@ -28,18 +28,19 @@ export const TicketsFilterForm = ({ handleForm }: TicketsFilterFormProps) => {
         register,
         resetField,
         formState: { errors },
+        reset
     } = useForm<TransactionFormFilterProps>();
 
     const onFilterTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setFilterType(event.target.value);
         resetField('field');
         resetField('value');
-        resetField('rangeValueA')
+        resetField('rangeValueA');
         resetField('rangeValueB');
     };
 
-    const onFieldChange = () => {        
-        resetField('rangeValueA')
+    const onFieldChange = () => {
+        resetField('rangeValueA');
         resetField('rangeValueB');
     };
 
@@ -48,9 +49,14 @@ export const TicketsFilterForm = ({ handleForm }: TicketsFilterFormProps) => {
         handleForm(criteriaValues);
     };
 
+    const clear = () => {
+        reset();
+        handleForm({});
+    };
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={4}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={4} mb={8}>
                 <Box>
                     <FormControl id="filterType">
                         <FormLabel htmlFor="filterType">Filtrar por:</FormLabel>
@@ -113,17 +119,27 @@ export const TicketsFilterForm = ({ handleForm }: TicketsFilterFormProps) => {
                 <Box>
                     <FormControl id="limit">
                         <FormLabel htmlFor="limit">Cantidad:</FormLabel>
-                        <Select defaultValue={5} {...register('limit')}>
+                        <Select defaultValue={10} {...register('limit')}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={20}>20</option>
                         </Select>
                     </FormControl>
                 </Box>
+            </SimpleGrid>
+
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
                 <Box>
                     <Flex h="100%" direction="column" justify="flex-end">
                         <Button type="submit" colorScheme="blue">
                             Filtrar
+                        </Button>
+                    </Flex>
+                </Box>
+                <Box>
+                    <Flex h="100%" direction="column" justify="flex-end">
+                        <Button type="button" onClick={clear}>
+                            Limpiar
                         </Button>
                     </Flex>
                 </Box>

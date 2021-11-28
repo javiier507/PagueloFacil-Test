@@ -1,19 +1,19 @@
 import { http } from '../utils/request';
 
-import { PaginationResponse } from '../types/GenericTypes';
 import { CriteriaMiniProps } from '../types/CriteriaMiniTypes';
 
-import {
-    TransactionResponse
-} from '../types/TransactionTypes';
+import { TransactionResponse } from '../types/TransactionTypes';
 
 export const FindAllTransactionsApi = ({
-    filter = 'AVAILABLE',
-    limit = 20,
+    filter = undefined,
+    limit = 10,
     offset = 0,
-}: CriteriaMiniProps) =>
-    http
-        .get<TransactionResponse>(
-            `/PFManagementServices/api/v1/MerchantTransactions`,
-        )
+}: CriteriaMiniProps) => {
+    let endpoint = `/PFManagementServices/api/v1/MerchantTransactions?Limit=${limit}&Offset=${offset}`;
+    if(filter) {
+        endpoint = `${endpoint}&filter=${filter}`;
+    }
+    return http
+        .get<TransactionResponse>(endpoint)
         .then((response) => response.data);
+};

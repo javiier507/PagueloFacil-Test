@@ -1,18 +1,15 @@
 import { useState } from 'react';
 import { useQuery } from '../libraries/react-query';
 import { Box, Stack } from '../libraries/chakra';
-import { useHistory } from '../libraries/react-router';
 
 import { CriteriaMiniProps } from '../types/CriteriaMiniTypes';
 import { FindAllTransactionsApi } from '../api/resources';
-import { ROUTES } from '../routers/names';
 
 import { RequestMessage } from '../components/elements/RequestMessage';
 import { TicketsFilterForm } from '../components/tickets/TicketsFilterForm';
 import { TicketsTable } from '../components/tickets/TicketsTable';
 
 export const Tickets = () => {
-    const history = useHistory();
     const [criteria, setCriteria] = useState<CriteriaMiniProps>({});
 
     const { isLoading, isError, data } = useQuery(
@@ -25,13 +22,10 @@ export const Tickets = () => {
     );
 
     const handleFilterForm = (values: CriteriaMiniProps) => {
-        console.log(values);
-        //setCriteria(values);
+        setCriteria(values);
     };
 
-    const handleGoToDetail = (code: string) => {
-        //history.push(`${ROUTES.TICKETS}/${ticketNumber}`);
-    };
+    const handleGoToDetail = () => {};
 
     const handlePagination = (page: number) => {
         setCriteria({ ...criteria, offset: page });
