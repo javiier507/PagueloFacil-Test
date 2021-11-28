@@ -1,56 +1,129 @@
+import { useState } from 'react';
 import {
     FormControl,
     FormLabel,
     Select,
+    Input,
     Flex,
     Box,
     Button,
     SimpleGrid,
+    Text,
 } from '../../libraries/chakra';
 import { useForm } from '../../libraries/hook-form';
 
-import { CriteriaMiniProps } from '../../types/CriteriaMiniTypes';
+import { CriteriaMiniProps, TransactionFormFilterProps } from '../../types/CriteriaMiniTypes';
+import { FILTERS, FilterList, getFilterList } from '../../constants';
+import { mapCriteria } from '../../utils/criteriaUtils';
 
 interface TicketsFilterFormProps {
     handleForm: (values: CriteriaMiniProps) => void;
 }
 
 export const TicketsFilterForm = ({ handleForm }: TicketsFilterFormProps) => {
-    const { handleSubmit, register } = useForm<CriteriaMiniProps>();
+    const [filterType, setFilterType] = useState<string>(FILTERS.FIELD);
 
-    const onSubmit = (values: CriteriaMiniProps) => {
-        handleForm(values);
+    const {
+        handleSubmit,
+        register,
+        resetField,
+        formState: { errors },
+    } = useForm<TransactionFormFilterProps>();
+
+    const onFilterTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setFilterType(event.target.value);
+        resetField('field');
+        resetField('value');
+        resetField('rangeValueA')
+        resetField('rangeValueB');
+    };
+
+    const onFieldChange = () => {        
+        resetField('rangeValueA')
+        resetField('rangeValueB');
+    };
+
+    const onSubmit = (values: TransactionFormFilterProps) => {
+        const criteriaValues = mapCriteria(filterType, values);
+        handleForm(criteriaValues);
     };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={4}>
                 <Box>
-                    <FormControl id="filter">
-                        <FormLabel htmlFor="filter">Filtrar por:</FormLabel>
-                        <Select defaultValue={'AVAILABLE'} {...register('filter')}>
-                            <option value="AVAILABLE">Disponibles</option>
-                            <option value="OPEN">Abiertos</option>
-                            <option value="RESOLVED">Resueltos</option>
-                            <option value="ALL">Todos</option>
+                    <FormControl id="filterType">
+                        <FormLabel htmlFor="filterType">Filtrar por:</FormLabel>
+                        <Select value={filterType} onChange={onFilterTypeChange}>
+                            {FilterList.map((item) => (
+                                <option key={item.value} value={item.value}>
+                                    {item.name}
+                                </option>
+                            ))}
                         </Select>
                     </FormControl>
                 </Box>
                 <Box>
+                    <FormControl id="field">
+                        <FormLabel htmlFor="field">
+                            {filterType === FILTERS.FIELD ? 'Campo' : 'Rango'}:
+                        </FormLabel>
+                        <Select
+                            {...register('field', {
+                                required: 'Este campo es requerido',
+                            })}
+                            onChange={onFieldChange}
+                        >
+                            <option key={'nothing'} value={undefined}>
+                                {''}
+                            </option>
+                            {getFilterList(filterType).map((item) => (
+                                <option key={item.value} value={item.value}>
+                                    {item.name}
+                                </option>
+                            ))}
+                        </Select>
+                        <Text color="red.500">{errors.field && errors.field.message}</Text>
+                    </FormControl>
+                </Box>
+                {filterType === FILTERS.FIELD ? (
+                    <Box>
+                        <FormControl id="value">
+                            <FormLabel htmlFor="value">Valor:</FormLabel>
+                            <Input type="text" {...register('value')} />
+                        </FormControl>
+                    </Box>
+                ) : null}
+                {filterType === FILTERS.RANGE ? (
+                    <Box>
+                        <FormControl id="rangeValueA">
+                            <FormLabel htmlFor="rangeValueA">Desde:</FormLabel>
+                            <Input type="text" {...register('rangeValueA')} />
+                        </FormControl>
+                    </Box>
+                ) : null}
+                {filterType === FILTERS.RANGE ? (
+                    <Box>
+                        <FormControl id="rangeValueB">
+                            <FormLabel htmlFor="rangeValueB">Hasta:</FormLabel>
+                            <Input type="text" {...register('rangeValueB')} />
+                        </FormControl>
+                    </Box>
+                ) : null}
+                <Box>
                     <FormControl id="limit">
                         <FormLabel htmlFor="limit">Cantidad:</FormLabel>
-                        <Select defaultValue={'20'} {...register('limit')}>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="40">40</option>
-                            <option value="50">50</option>
+                        <Select defaultValue={5} {...register('limit')}>
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
                         </Select>
                     </FormControl>
                 </Box>
                 <Box>
                     <Flex h="100%" direction="column" justify="flex-end">
                         <Button type="submit" colorScheme="blue">
-                            Aplicar
+                            Filtrar
                         </Button>
                     </Flex>
                 </Box>

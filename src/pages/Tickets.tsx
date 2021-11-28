@@ -25,7 +25,8 @@ export const Tickets = () => {
     );
 
     const handleFilterForm = (values: CriteriaMiniProps) => {
-        setCriteria(values);
+        console.log(values);
+        //setCriteria(values);
     };
 
     const handleGoToDetail = (code: string) => {
