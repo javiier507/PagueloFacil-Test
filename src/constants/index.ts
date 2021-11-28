@@ -80,3 +80,15 @@ export function getFilterList(filter: string): Array<ReferenceListProp<string>> 
     }
     return filters[filter];
 }
+
+/**
+ *  Status
+ */
+
+const TRANSACTION_STATUS = {
+    APPROVED: 1
+}
+
+export const TRANSACTION_STATUS_CHOICES = {
+    [TRANSACTION_STATUS.APPROVED]: 'Aprobada'
+}

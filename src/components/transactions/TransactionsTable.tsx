@@ -1,6 +1,8 @@
 import { Table, Thead, Tbody, Tr, Th, Td, Stack, Box, Text } from '../../libraries/chakra';
 
 import { Transaction } from '../../types/TransactionTypes';
+import { getStatusName } from '../../utils/status';
+
 import { Pagination, PaginationProps } from '../elements/Pagination';
 import { Message } from '../elements/Message';
 
@@ -40,7 +42,7 @@ export const TransactionsTable = ({
                             >
                                 <Td>{item.dateTms}</Td>
                                 <Td>{item.codOper}</Td>
-                                <Td>{item.status}</Td>
+                                <Td>{getStatusName(item.status)}</Td>
                                 <Td>
                                     <Text>{item.cardholderFullName}</Text>
                                     <Text>{item.email}</Text>
