@@ -1,16 +1,15 @@
 import { axios } from '../libraries/http-request';
 
-import { API_URL } from '../utils/environment';
-import { TOKEN_API } from '../constants';
+import { API_URL, API_TOKEN } from '../utils/environment';
 
 const http = axios.create({
-    baseURL: API_URL,
+    baseURL: API_URL?.toString()
 });
 
 http.interceptors.request.use(
     function (config) {
-        if (config.headers) {
-            config.headers.Authorization = TOKEN_API;
+        if (config.headers && API_TOKEN) {
+            config.headers.Authorization = API_TOKEN.toString();
         }
         return config;
     },
