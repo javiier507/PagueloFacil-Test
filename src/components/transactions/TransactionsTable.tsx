@@ -9,14 +9,12 @@ import { Message } from '../elements/Message';
 interface TransactionsTableProps {
     columns: Array<string>;
     rows: Array<Transaction>;
-    handleRowOnClick: (code: string) => void;
     pagination?: PaginationProps;
 }
 
 export const TransactionsTable = ({
     columns,
     rows = [],
-    handleRowOnClick,
     pagination,
 }: TransactionsTableProps) => {
     return (
@@ -37,8 +35,7 @@ export const TransactionsTable = ({
                                 _hover={{
                                     backgroundColor: 'gray.50',
                                     cursor: 'pointer',
-                                }}
-                                onClick={() => handleRowOnClick(item.codOper)}
+                                }}                                
                             >
                                 <Td>{item.dateTms}</Td>
                                 <Td>{item.codOper}</Td>

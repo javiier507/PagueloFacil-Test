@@ -25,8 +25,6 @@ export const Transactions = () => {
         setCriteria(values);
     };
 
-    const handleGoToDetail = () => {};
-
     const handlePagination = (page: number) => {
         setCriteria({ ...criteria, offset: page });
     };
@@ -56,7 +54,6 @@ export const Transactions = () => {
                         'Monto $',
                     ]}
                     rows={transactions}
-                    handleRowOnClick={handleGoToDetail}
                     pagination={{
                         offset: criteria.offset || 0,
                         limit: criteria.limit || 10,
