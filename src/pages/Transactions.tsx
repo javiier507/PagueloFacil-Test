@@ -6,10 +6,10 @@ import { CriteriaMiniProps } from '../types/CriteriaMiniTypes';
 import { FindAllTransactionsApi } from '../api/resources';
 
 import { RequestMessage } from '../components/elements/RequestMessage';
-import { TicketsFilterForm } from '../components/tickets/TicketsFilterForm';
-import { TicketsTable } from '../components/tickets/TicketsTable';
+import { TransactionsFilterForm } from '../components/transactions/TransactionsFilterForm';
+import { TransactionsTable } from '../components/transactions/TransactionsTable';
 
-export const Tickets = () => {
+export const Transactions = () => {
     const [criteria, setCriteria] = useState<CriteriaMiniProps>({});
 
     const { isLoading, isError, data } = useQuery(
@@ -38,10 +38,10 @@ export const Tickets = () => {
     return (
         <Stack>
             <Box p={4} bg="white">
-                <TicketsFilterForm handleForm={handleFilterForm} />
+                <TransactionsFilterForm handleForm={handleFilterForm} />
             </Box>
             <Box p={4} bg="white">
-                <TicketsTable
+                <TransactionsTable
                     columns={['Fecha', 'Código de Operación	', 'Estado', 'Correo Electrónico', 'Monto $']}
                     rows={data}
                     handleRowOnClick={handleGoToDetail}

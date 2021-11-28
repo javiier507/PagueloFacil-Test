@@ -3,19 +3,19 @@ import { Table, Thead, Tbody, Tr, Th, Td, Stack, Box, Text } from '../../librari
 import { Transaction } from '../../types/TransactionTypes';
 import { Pagination, PaginationProps } from '../elements/Pagination';
 
-interface TicketsTableProps {
+interface TransactionsTableProps {
     columns: Array<string>;
     rows: Array<Transaction>;
     handleRowOnClick: (code: string) => void;
     pagination?: PaginationProps;
 }
 
-export const TicketsTable = ({
+export const TransactionsTable = ({
     columns,
     rows = [],
     handleRowOnClick,
     pagination,
-}: TicketsTableProps) => {
+}: TransactionsTableProps) => {
     return (
         <Stack>
             <Box overflowX="scroll">

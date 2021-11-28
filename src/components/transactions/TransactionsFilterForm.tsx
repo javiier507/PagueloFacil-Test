@@ -16,11 +16,11 @@ import { CriteriaMiniProps, TransactionFormFilterProps } from '../../types/Crite
 import { FILTERS, FilterList, getFilterList } from '../../constants';
 import { mapCriteria } from '../../utils/criteriaUtils';
 
-interface TicketsFilterFormProps {
+interface TransactionsFilterFormProps {
     handleForm: (values: CriteriaMiniProps) => void;
 }
 
-export const TicketsFilterForm = ({ handleForm }: TicketsFilterFormProps) => {
+export const TransactionsFilterForm = ({ handleForm }: TransactionsFilterFormProps) => {
     const [filterType, setFilterType] = useState<string>(FILTERS.FIELD);
 
     const {
