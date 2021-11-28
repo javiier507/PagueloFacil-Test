@@ -23,7 +23,7 @@ export const Pagination = ({ offset, limit, handleSetPage, hasData }: Pagination
     return (
         <Stack direction="row">
             <Button
-                colorScheme="cyan"
+                colorScheme="green"
                 size="sm"
                 leftIcon={<FiArrowLeft />}
                 onClick={setPrevPage}
@@ -31,11 +31,11 @@ export const Pagination = ({ offset, limit, handleSetPage, hasData }: Pagination
             >
                 {''}
             </Button>
-            <Button colorScheme="cyan" size="sm" variant="outline" disabled={true}>
+            <Button colorScheme="green" size="sm" variant="outline" disabled={true}>
                 {currentPage}
             </Button>
             <Button
-                colorScheme="cyan"
+                colorScheme="green"
                 size="sm"
                 leftIcon={<FiArrowRight />}
                 onClick={setNextPage}

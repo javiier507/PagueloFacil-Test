@@ -26,7 +26,6 @@ export const TransactionsFilterForm = ({ handleForm }: TransactionsFilterFormPro
         handleSubmit,
         register,
         resetField,
-        formState: { errors },
         reset
     } = useForm<TransactionFormFilterProps>();
 
@@ -127,7 +126,7 @@ export const TransactionsFilterForm = ({ handleForm }: TransactionsFilterFormPro
             <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
                 <Box>
                     <Flex h="100%" direction="column" justify="flex-end">
-                        <Button type="submit" colorScheme="blue">
+                        <Button type="submit" colorScheme="green">
                             Filtrar
                         </Button>
                     </Flex>
