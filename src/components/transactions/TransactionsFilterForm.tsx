@@ -14,7 +14,7 @@ import { useForm } from '../../libraries/hook-form';
 
 import { CriteriaMiniProps, TransactionFormFilterProps } from '../../types/CriteriaMiniTypes';
 import { FILTERS, FilterList, getFilterList } from '../../constants';
-import { mapCriteria } from '../../utils/criteriaUtils';
+import { mapCriteria } from '../../utils/criteria';
 
 interface TransactionsFilterFormProps {
     handleForm: (values: CriteriaMiniProps) => void;
