@@ -7,8 +7,7 @@ import {
     Flex,
     Box,
     Button,
-    SimpleGrid,
-    Text,
+    SimpleGrid
 } from '../../libraries/chakra';
 import { useForm } from '../../libraries/hook-form';
 
@@ -75,9 +74,7 @@ export const TransactionsFilterForm = ({ handleForm }: TransactionsFilterFormPro
                             {filterType === FILTERS.FIELD ? 'Campo' : 'Rango'}:
                         </FormLabel>
                         <Select
-                            {...register('field', {
-                                required: 'Este campo es requerido',
-                            })}
+                            {...register('field')}
                             onChange={onFieldChange}
                         >
                             <option key={'nothing'} value={undefined}>
@@ -88,8 +85,7 @@ export const TransactionsFilterForm = ({ handleForm }: TransactionsFilterFormPro
                                     {item.name}
                                 </option>
                             ))}
-                        </Select>
-                        <Text color="red.500">{errors.field && errors.field.message}</Text>
+                        </Select>                        
                     </FormControl>
                 </Box>
                 {filterType === FILTERS.FIELD ? (

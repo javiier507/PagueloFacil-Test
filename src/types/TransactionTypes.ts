@@ -19,4 +19,5 @@ export interface Transaction {
 export interface TransactionResponse {
     headerStatus: HeaderReponse;
     data: Array<Transaction>;
+    success: boolean;
 }

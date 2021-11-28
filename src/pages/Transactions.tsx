@@ -6,6 +6,7 @@ import { CriteriaMiniProps } from '../types/CriteriaMiniTypes';
 import { FindAllTransactionsApi } from '../api/resources';
 
 import { RequestMessage } from '../components/elements/RequestMessage';
+import { Message } from '../components/elements/Message';
 import { TransactionsFilterForm } from '../components/transactions/TransactionsFilterForm';
 import { TransactionsTable } from '../components/transactions/TransactionsTable';
 
@@ -17,7 +18,6 @@ export const Transactions = () => {
         () => FindAllTransactionsApi(criteria),
         {
             keepPreviousData: true,
-            select: x => x.data
         },
     );
 
@@ -35,6 +35,12 @@ export const Transactions = () => {
         return <RequestMessage isLoading={isLoading} isError={isError} data={data} />;
     }
 
+    if (!data.success) {
+        return <Message status="error" text={'Lo sentimos. No podemos mostrar la información'} />;
+    }
+
+    const transactions = data.data;
+
     return (
         <Stack>
             <Box p={4} bg="white">
@@ -42,8 +48,14 @@ export const Transactions = () => {
             </Box>
             <Box p={4} bg="white">
                 <TransactionsTable
-                    columns={['Fecha', 'Código de Operación	', 'Estado', 'Correo Electrónico', 'Monto $']}
-                    rows={data}
+                    columns={[
+                        'Fecha',
+                        'Código de Operación	',
+                        'Estado',
+                        'Correo Electrónico',
+                        'Monto $',
+                    ]}
+                    rows={transactions}
                     handleRowOnClick={handleGoToDetail}
                     /* pagination={{
                         currentPage: data?.currentPage || 0,
