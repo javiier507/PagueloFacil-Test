@@ -1,74 +1,48 @@
 import { Stack, Button } from '../../libraries/chakra';
 import { FiArrowLeft, FiArrowRight } from '../../libraries/react-icons';
-
-import { PaginationBase } from '../../types/GenericTypes';
-
-// the currentPage start in zero
-
-export interface PaginationProps extends PaginationBase {
+export interface PaginationProps {
+    offset: number;     // current page; start in zero
+    limit: number;      // increment o decrement
     handleSetPage: (page: number) => void;
+    hasData: boolean;
 }
 
-export const Pagination = ({ currentPage, totalPages, handleSetPage }: PaginationProps) => {
-    const setFirstPage = () => {
-        handleSetPage(0);
-    };
-
+export const Pagination = ({ offset, limit, handleSetPage, hasData }: PaginationProps) => {
     const setPrevPage = () => {
-        let page = currentPage - 1;
+        let page = offset - limit;
         page = page < 0 ? 0 : page;
         handleSetPage(page);
     };
 
     const setNextPage = () => {
-        let page = currentPage + 1;
-        page = page >= totalPages ? totalPages - 1 : page;
-        handleSetPage(page);
+        handleSetPage(offset + limit);
     };
-
-    const setLastPage = () => {
-        handleSetPage(totalPages - 1);
-    };
+    
+    const currentPage = (offset / limit) + 1;
 
     return (
         <Stack direction="row">
             <Button
                 colorScheme="cyan"
                 size="sm"
-                onClick={setFirstPage}
-                disabled={currentPage === 0}
-            >
-                {1}
-            </Button>
-            <Button
-                colorScheme="cyan"
-                size="sm"
                 leftIcon={<FiArrowLeft />}
                 onClick={setPrevPage}
-                disabled={currentPage === 0}
+                isDisabled={offset === 0}
             >
                 {''}
             </Button>
             <Button colorScheme="cyan" size="sm" variant="outline" disabled={true}>
-                {currentPage + 1}
+                {currentPage}
             </Button>
             <Button
                 colorScheme="cyan"
                 size="sm"
                 leftIcon={<FiArrowRight />}
                 onClick={setNextPage}
-                disabled={currentPage === totalPages - 1}
+                isDisabled={!hasData}
             >
                 {''}
-            </Button>
-            <Button
-                colorScheme="cyan"
-                size="sm"
-                onClick={setLastPage}
-                disabled={currentPage === totalPages - 1}
-            >
-                {totalPages}
-            </Button>
+            </Button>            
         </Stack>
     );
 };

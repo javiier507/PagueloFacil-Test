@@ -57,12 +57,12 @@ export const Transactions = () => {
                     ]}
                     rows={transactions}
                     handleRowOnClick={handleGoToDetail}
-                    /* pagination={{
-                        currentPage: data?.currentPage || 0,
-                        totalRecords: data?.totalRecords || 0,
-                        totalPages: data?.totalPages || 0,
+                    pagination={{
+                        offset: criteria.offset || 0,
+                        limit: criteria.limit || 10,
                         handleSetPage: handlePagination,
-                    }} */
+                        hasData: !!transactions.length
+                    }}
                 />
             </Box>
         </Stack>

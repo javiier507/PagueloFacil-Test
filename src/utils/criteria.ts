@@ -18,7 +18,7 @@ export function mapCriteria(type: string, values: TransactionFormFilterProps): C
     const response: CriteriaMiniProps = {
         param: type === FILTERS.FIELD ? 'filter' : 'conditional',
         filter,
-        limit: values.limit,
+        limit: parseInt(values.limit.toString()),
     };
     return response;
 }

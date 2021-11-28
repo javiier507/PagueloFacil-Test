@@ -2,6 +2,7 @@ import { Table, Thead, Tbody, Tr, Th, Td, Stack, Box, Text } from '../../librari
 
 import { Transaction } from '../../types/TransactionTypes';
 import { Pagination, PaginationProps } from '../elements/Pagination';
+import { Message } from '../elements/Message';
 
 interface TransactionsTableProps {
     columns: Array<string>;
@@ -43,7 +44,9 @@ export const TransactionsTable = ({
                                 <Td>
                                     <Text>{item.cardholderFullName}</Text>
                                     <Text>{item.email}</Text>
-                                    <Text>{`${item.cardType} ${item.displayCardNum || ''} ${item.fraudInfo ? `Score: ${item.fraudInfo.risk_score}` : '' }`}</Text>
+                                    <Text>{`${item.cardType} ${item.displayCardNum || ''} ${
+                                        item.fraudInfo ? `Score: ${item.fraudInfo.risk_score}` : ''
+                                    }`}</Text>
                                 </Td>
                                 <Td>{item.amount}</Td>
                             </Tr>
@@ -51,6 +54,11 @@ export const TransactionsTable = ({
                     </Tbody>
                 </Table>
             </Box>
+            {!pagination?.hasData ? (
+                <Box py={4}>
+                    <Message status="info" text="No hay datos para mostrar" />
+                </Box>
+            ) : null}
             {pagination ? (
                 <Box py={4}>
                     <Pagination {...pagination} />
