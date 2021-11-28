@@ -4,7 +4,7 @@ import { FILTERS, FILTER_RANGES } from '../constants';
 export function mapCriteria(type: string, values: TransactionFormFilterProps): CriteriaMiniProps {
     let filter: string = '';
 
-    if (type === FILTERS.FIELD) {
+    if (type === FILTERS.FIELD && values.field && values.value) {
         filter = `${values.field}::${values.value}`;
     } else if (type === FILTERS.RANGE) {
         const prefix = `${values.field}$bt`;
@@ -16,6 +16,7 @@ export function mapCriteria(type: string, values: TransactionFormFilterProps): C
     }
 
     const response: CriteriaMiniProps = {
+        param: type === FILTERS.FIELD ? 'filter' : 'conditional',
         filter,
         limit: values.limit,
     };

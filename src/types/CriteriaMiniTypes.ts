@@ -1,4 +1,5 @@
 export interface CriteriaMiniProps {
+    param?: string;
     filter?: string;
     limit?: number;
     offset?: number;
