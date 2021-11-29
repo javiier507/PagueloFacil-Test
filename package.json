@@ -1,6 +1,9 @@
 {
     "name": "paguelo-facil",
     "version": "0.0.0",
+    "private": "true",
+    "license": "ISC",
+    "author": "Carlos Peñalba",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
